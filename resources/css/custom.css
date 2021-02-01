@@ -1,0 +1,11 @@
+.width-80{
+
+width:80px;
+}
+.heigth-100{
+	height: 100px;
+}
+
+.myCoursesGap > div {
+  margin: 0 30px !important;
+}
