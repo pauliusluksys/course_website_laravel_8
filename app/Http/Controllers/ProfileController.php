@@ -25,12 +25,12 @@ class ProfileController extends Controller
 		$id = Auth::id();
 		$user=DB::select('select * from users where id=?',[$id]);
 		//dd($user);
-		return view('profileMain',compact('user'));
+		return view('profileInformation',compact('user'));
 
 	}
 
 
-	public function store(Request $request)
+	public function storePicture(Request $request)
 	{
 
 		$validation = $request->validate([

@@ -10,6 +10,10 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CreateCourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\UserProfilePictureController;
+use App\Http\Controllers\UserSecurityController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,14 +24,37 @@ use App\Http\Controllers\UploadController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/upload', [UploadController::class,'store']);
-Route::get('upload', [UploadController::class,'index'])->name('upload');
-Route::get('upload1', [UploadController::class,'index1'])->name('upload1');
-
-Route::post('/profileUpload', [ProfileController::class,'store']);
-Route::get('profileUpload', [ProfileController::class,'index'])->name('profileUpload');
+//first 
 
 
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/');
+
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+Route::get('profile/security', [UserSecurityController::class,'index']);
+Route::post('profile/upload', [UserProfilePictureController::class,'store']);
+
+Route::get('profile/upload', [UserProfilePictureController::class,'index'])->name('upload');
+
+Route::get('profile',[ProfileController::class,'index'])->name('profile.index');
+Route::post('profile',[ProfileController::class,'update'])->name('profile.update');
+//Route::post('profile/upload',[ProfileController::class,'storePicture'])->name('profileUpload');
 Route::get('categories',[CategoryController::class,'index'])->name('categories');
 
 Route::get('categories/{name}',[CategoryController::class,'show'])->name('categoriesShow');
@@ -42,8 +69,7 @@ Route::post('course',[UserCourseController::class,'store'])->name('userCourse.st
 Route::get('/myCourses',[UserCourseController::class,'index'])->name('userCourse.index');
 
 // Route::get('profile',[ProfileController::class,'index'])->name('profile');
-Route::get('profile',[ProfileController::class,'index'])->name('profile.index');
-Route::post('profile',[ProfileController::class,'update'])->name('profile.update');
+
 
 
  Route::post('/createcourse',[CreateCourseController::class,'store'])->name('create.create');

@@ -38,7 +38,7 @@
 	
 	@else
 	<div class="d-flex mt-2 mr-2"> <div class="flex-grow-1"></div>
-  <div ><a class="btn btn-primary" href="#" role="button">Go to all of my courses </a></div></div>
+  <div ><a class="btn btn-primary" href="/myCourses" role="button">Go to all of my courses </a></div></div>
   	
 
   @endif
@@ -61,11 +61,9 @@
 
   <div><h4> Popular Categories:</h4></div>
   <div class="row myCoursesGap d-flex justify-content-center" style="margin-right: -10px;margin-left:-10px;">
-  	<button type="button" class="btn btn-outline-secondary">cooking</button>
-  	<button type="button" class="btn btn-outline-secondary">singing</button>
-  	<button type="button" class="btn btn-outline-secondary">programming</button>
-  	<button type="button" class="btn btn-outline-secondary">dancing</button>
-  	<button type="button" class="btn btn-outline-secondary">painting</button>
+    @foreach($categories as $category)
+  	<a class=" mx-2 btn btn-outline-secondary hover-white-text" role="button" href="categories/{{$category->slug}}">{{$category->name}}</a>
+  	@endforeach
 
 
   </div>

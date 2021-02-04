@@ -9,9 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\models\Course;
-class User extends Authenticatable implements HasMedia
+
+class User extends Authenticatable implements HasMedia,MustVerifyEmail
 {
-    use HasFactory, Notifiable,InteractsWithMedia;
+    use HasFactory, Notifiable,InteractsWithMedia,Notifiable;
 
     /**
      * The attributes that are mass assignable.

@@ -8,10 +8,11 @@
   	<div class="col-md">
 <div style="display:flex; width: 200px; margin-top: 30px;">
 <div class="list-group">
-		<a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+		<a href="/profile" class="list-group-item list-group-item-action active" aria-current="true">
     Profile Information
   </a>
   <a href="{{route('upload')}}" class="list-group-item list-group-item-action">Picture</a>
+  <a href="profile/security" class="list-group-item list-group-item-action">Security Settings</a>
 </div>
 </div>
   	</div>
